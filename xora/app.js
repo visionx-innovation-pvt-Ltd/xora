@@ -2,53 +2,34 @@
 // 🚀 XORA ENTERPRISE APPLICATION & BESPOKE ATELIER ENGINE
 // ========================================================
 
-// --- STATE MANAGEMENT ---
-const XORA_STATE = {
-  currentTier: localStorage.getItem("xoraUserTier") || "Silver",
-  cart: JSON.parse(localStorage.getItem("xoraCart")) || [],
-  wishlist: JSON.parse(localStorage.getItem("xoraWishlist")) || [],
-  bespokeQueue: JSON.parse(localStorage.getItem("xoraBespokeQueue")) || [
-    {
-      id: "XR-BESPOKE-8042",
-      customer: "Karthik Raja (Zoho Corp)",
-      phone: "+91 98401 23456",
-      garment: "Men's Tech Corporate Suit",
-      measurements: { height: 178, chest: 40, waist: 34, length: 32, shoulder: 18, fit: "Athletic Smart Desk Tapered" },
-      fabric: "Italian Poly-Wool Tech Stretch",
-      color: "Obsidian Navy",
-      monogram: "K.R. • ZOHO",
-      notes: "12h desk comfort needed. Extra shoulder gusset.",
-      designer: "Aisha Varman",
-      stage: "Master Tailoring"
-    },
-    {
-      id: "XR-BESPOKE-8043",
-      customer: "Dr. Ananya Sundaram (TCS Lead)",
-      phone: "+91 94440 98765",
-      garment: "Women's Executive Power Suit",
-      measurements: { height: 165, chest: 36, waist: 29, length: 30, shoulder: 15.5, fit: "Modern Slim Fit" },
-      fabric: "Bamboo-Silk Anti-Odor Twill",
-      color: "Graphite Charcoal",
-      monogram: "DR. ANANYA",
-      notes: "Wrinkle-free travel suit for international client meetings.",
-      designer: "K. Ramanathan",
-      stage: "Laser Precision Cutting"
-    },
-    {
-      id: "XR-BESPOKE-8044",
-      customer: "Suresh Natarajan",
-      phone: "+91 97900 11223",
-      garment: "Pure Egyptian Giza Bespoke Shirt",
-      measurements: { height: 172, chest: 42, waist: 36, length: 31, shoulder: 18.5, fit: "Classic Regular Comfort" },
-      fabric: "100% Royal Egyptian Giza Cotton",
-      color: "Pearl Crisp White",
-      monogram: "S.N.",
-      notes: "Family wedding and reception wear.",
-      designer: "Aisha Varman",
-      stage: "15-Point Quality QC"
-    }
-  ]
-};
+// --- SAFE LOCAL STATE ---
+function readStoredValue(key, fallback = null) {
+  try { const value = localStorage.getItem(key); return value === null ? fallback : value; } catch (error) { return fallback; }
+}
+function readStoredArray(key, fallback = []) {
+  try { const value = JSON.parse(readStoredValue(key, 'null')); return Array.isArray(value) ? value : fallback; } catch (error) { return fallback; }
+}
+function saveStoredValue(key, value) {
+  try { localStorage.setItem(key, value); return true; } catch (error) { showNotification('Could not save in this browser. Check storage settings and try again.', 'error'); return false; }
+}
+function escapeHtml(value) {
+  return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll(String.fromCharCode(39), '&#39;');
+}
+function csvCell(value) {
+  let text = String(value ?? '');
+  if (/^[=+@\\-\\t\\r]/.test(text)) text = String.fromCharCode(39) + text;
+  return String.fromCharCode(34) + text.replaceAll(String.fromCharCode(34), String.fromCharCode(34,34)) + String.fromCharCode(34);
+}
+const VALID_TIERS = ['Silver', 'Gold', 'Platinum', 'Obsidian'];
+const savedTier = readStoredValue('xoraUserTier', 'Silver');
+const initialTier = VALID_TIERS.includes(savedTier) ? savedTier : 'Silver';
+const defaultBespokeQueue = [
+  { id: 'XR-DEMO-8042', customer: 'Sample Customer A', phone: 'Not provided', garment: 'Tech Corporate Suit', measurements: { height: 178, chest: 40, waist: 34, length: 32, shoulder: 18, fit: 'Athletic Smart Desk Tapered' }, fabric: 'Italian Poly-Wool Tech Stretch', color: 'Obsidian Navy', monogram: 'SAMPLE-A', notes: 'Demo order only. No real customer details.', designer: 'Demo Designer', stage: 'Master Tailoring' },
+  { id: 'XR-DEMO-8043', customer: 'Sample Customer B', phone: 'Not provided', garment: 'Executive Power Suit', measurements: { height: 165, chest: 36, waist: 29, length: 30, shoulder: 15.5, fit: 'Modern Slim Fit' }, fabric: 'Bamboo-Silk Anti-Odor Twill', color: 'Graphite Charcoal', monogram: 'SAMPLE-B', notes: 'Demo order only. No real customer details.', designer: 'Demo Designer', stage: 'Laser Precision Cutting' },
+  { id: 'XR-DEMO-8044', customer: 'Sample Customer C', phone: 'Not provided', garment: 'Bespoke Shirt', measurements: { height: 172, chest: 42, waist: 36, length: 31, shoulder: 18.5, fit: 'Classic Regular Comfort' }, fabric: 'Royal Egyptian Giza Cotton', color: 'Pearl Crisp White', monogram: 'SAMPLE-C', notes: 'Demo order only. No real customer details.', designer: 'Demo Designer', stage: '15-Point Quality QC' }
+];
+const storedCart = readStoredArray('xoraCart').filter(item => item && typeof item === 'object' && typeof item.name === 'string' && Number.isFinite(Number(item.price)) && Number(item.price) >= 0).map(item => ({ id: String(item.id || ''), name: item.name.slice(0, 160), price: Number(item.price), meta: String(item.meta || '').slice(0, 500), size: String(item.size || '').slice(0, 30), isCustom: Boolean(item.isCustom), quantity: Math.max(1, Math.min(99, Math.floor(Number(item.quantity) || 1))) }));
+const XORA_STATE = { currentTier: initialTier, cart: storedCart, wishlist: readStoredArray('xoraWishlist'), bespokeQueue: readStoredArray('xoraBespokeQueue', defaultBespokeQueue).filter(order => order && typeof order === 'object' && order.measurements && typeof order.measurements === 'object').slice(0, 500) };
 
 // --- XORA DESIGNER CATALOG ---
 const XORA_CATALOG = [
@@ -366,7 +347,7 @@ function initNavTierBadge() {
 
 function activateTier(tierName) {
   XORA_STATE.currentTier = tierName;
-  localStorage.setItem("xoraUserTier", tierName);
+  saveStoredValue("xoraUserTier", tierName);
   initNavTierBadge();
   renderCart();
   const discounts = { Silver: 5, Gold: 15, Platinum: 20, Obsidian: 25 };
@@ -385,21 +366,14 @@ function updateTierButtons(current) {
   });
 }
 
-// IT Corporate Tie-Up Simulator
-const verifyBtn = document.getElementById("verify-it-corp-btn");
+// IT Corporate Tie-Up Demo: company names alone do not verify employment.
+const verifyBtn = document.getElementById('verify-it-corp-btn');
 if (verifyBtn) {
-  verifyBtn.addEventListener("click", () => {
-    const input = document.getElementById("it-company-input");
-    const val = input ? input.value.trim().toLowerCase() : "";
-    const techCompanies = ["zoho", "tcs", "infosys", "wipro", "cognizant", "hcl", "accenture", "microsoft", "google", "amazon"];
-    
-    if (techCompanies.some(c => val.includes(c))) {
-      activateTier("Gold");
-      showNotification(`✅ Verified ${input.value.toUpperCase()} Employee ID! Upgraded to GOLD CLUB (15% OFF + Priority Bespoke)`, "success");
-    } else {
-      activateTier("Gold");
-      showNotification(`✅ Tech Corporate domain verified! Granted GOLD CLUB benefits.`, "success");
-    }
+  verifyBtn.addEventListener('click', () => {
+    const input = document.getElementById('it-company-input');
+    const value = input ? input.value.trim() : '';
+    if (!value) { showNotification('Enter your company name. This demo cannot verify employment.', 'error'); return; }
+    showNotification('Corporate verification is not connected yet. No membership tier was changed.', 'info');
   });
 }
 
@@ -598,7 +572,7 @@ function addToCart(productId, customItem = null, size = "") {
       quantity: 1
     });
   }
-  localStorage.setItem("xoraCart", JSON.stringify(XORA_STATE.cart));
+  saveStoredValue("xoraCart", JSON.stringify(XORA_STATE.cart));
   renderCart();
   openCart();
   showNotification("Added to your Shopping Bag 🛍️", "success");
@@ -606,7 +580,7 @@ function addToCart(productId, customItem = null, size = "") {
 
 function removeFromCart(index) {
   XORA_STATE.cart.splice(index, 1);
-  localStorage.setItem("xoraCart", JSON.stringify(XORA_STATE.cart));
+  saveStoredValue("xoraCart", JSON.stringify(XORA_STATE.cart));
   renderCart();
 }
 
@@ -648,8 +622,8 @@ function renderCart() {
         ${product ? getGarmentIllustration(product) : `<span style="font-size: 1.5rem;">✂️</span>`}
       </div>
       <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-meta">${item.meta}</div>
+        <div class="cart-item-name">${escapeHtml(item.name)}</div>
+        <div class="cart-item-meta">${escapeHtml(item.meta)}</div>
         <div class="cart-item-price">₹${item.price.toLocaleString("en-IN")}</div>
         <div class="cart-quantity-control" aria-label="Quantity controls">
           <button type="button" aria-label="Decrease quantity" onclick="changeCartQuantity(${index}, -1)">−</button>
@@ -697,7 +671,7 @@ function changeCartQuantity(index, change) {
   const item = XORA_STATE.cart[index];
   if (!item) return;
   item.quantity = Math.max(1, (Number(item.quantity) || 1) + change);
-  localStorage.setItem("xoraCart", JSON.stringify(XORA_STATE.cart));
+  saveStoredValue("xoraCart", JSON.stringify(XORA_STATE.cart));
   renderCart();
 }
 
@@ -915,7 +889,7 @@ function initBespokeCustomizer() {
       const newCommission = {
         id: orderId,
         customer: "Client (" + XORA_STATE.currentTier + " Member)",
-        phone: "+91 98840 55443",
+        phone: "Not provided",
         garment: currentType,
         measurements: { height, chest, waist, length, shoulder, fit },
         fabric: currentFabric,
@@ -927,7 +901,7 @@ function initBespokeCustomizer() {
       };
 
       XORA_STATE.bespokeQueue.unshift(newCommission);
-      localStorage.setItem("xoraBespokeQueue", JSON.stringify(XORA_STATE.bespokeQueue));
+      saveStoredValue("xoraBespokeQueue", JSON.stringify(XORA_STATE.bespokeQueue));
 
       // Add to cart with custom meta
       addToCart(null, {
@@ -962,21 +936,21 @@ function renderEnterpriseQueue() {
   queue.forEach((order, index) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td><strong style="color:var(--accent-color);">${order.id}</strong></td>
+      <td><strong style="color:var(--accent-color);">${escapeHtml(order.id)}</strong></td>
       <td>
-        <div><strong>${order.customer}</strong></div>
-        <div style="font-size:0.75rem; color:#888;">${order.phone}</div>
+        <div><strong>${escapeHtml(order.customer)}</strong></div>
+        <div style="font-size:0.75rem; color:#888;">${escapeHtml(order.phone)}</div>
       </td>
-      <td>${order.garment} <br><small style="color:#aaa;">${order.fabric} (${order.color})</small></td>
+      <td>${escapeHtml(order.garment)} <br><small style="color:#aaa;">${escapeHtml(order.fabric)} (${escapeHtml(order.color)})</small></td>
       <td style="font-family:monospace; font-size:0.8rem;">
         H:${order.measurements.height}cm | C:${order.measurements.chest}" | W:${order.measurements.waist}" | L:${order.measurements.length}"
       </td>
       <td>
-        <span style="color:#ffd700; font-weight:600;">[${order.monogram}]</span><br>
-        <small style="color:#aaa;">${order.notes}</small>
+        <span style="color:#ffd700; font-weight:600;">[${escapeHtml(order.monogram)}]</span><br>
+        <small style="color:#aaa;">${escapeHtml(order.notes)}</small>
       </td>
-      <td><strong style="color:#fff;">${order.designer}</strong></td>
-      <td><span class="status-pill status-tailoring" id="stage-badge-${index}">${order.stage}</span></td>
+      <td><strong style="color:#fff;">${escapeHtml(order.designer)}</strong></td>
+      <td><span class="status-pill status-tailoring" id="stage-badge-${index}">${escapeHtml(order.stage)}</span></td>
       <td>
         <button class="filter-btn" style="padding:4px 8px; font-size:0.75rem;" onclick="advanceStage(${index})">Next Stage ➔</button>
         <button class="filter-btn" style="padding:4px 8px; font-size:0.75rem; margin-top:4px;" onclick="viewCuttingSheet(${index})">CAD Sheet 📄</button>
@@ -1001,9 +975,9 @@ function advanceStage(index) {
   } else {
     order.stage = stages[0];
   }
-  localStorage.setItem("xoraBespokeQueue", JSON.stringify(XORA_STATE.bespokeQueue));
+  saveStoredValue("xoraBespokeQueue", JSON.stringify(XORA_STATE.bespokeQueue));
   renderEnterpriseQueue();
-  showNotification(`Order ${order.id} moved to: ${order.stage}`, "info");
+  showNotification(`Order ${escapeHtml(order.id)} moved to: ${escapeHtml(order.stage)}`, "info");
 }
 
 function viewCuttingSheet(index) {
@@ -1013,11 +987,11 @@ function viewCuttingSheet(index) {
   const details = document.getElementById("modal-cutting-details");
   if (!modal || !details) return;
 
-  title.textContent = `${order.id} • CUTTING BLUEPRINT`;
+  title.textContent = `${escapeHtml(order.id)} • CUTTING BLUEPRINT`;
   details.innerHTML = `
-    <strong>CUSTOMER:</strong> ${order.customer} (${order.phone})<br>
-    <strong>GARMENT:</strong> ${order.garment}<br>
-    <strong>FABRIC:</strong> ${order.fabric} (${order.color})<br>
+    <strong>CUSTOMER:</strong> ${escapeHtml(order.customer)} (${escapeHtml(order.phone)})<br>
+    <strong>GARMENT:</strong> ${escapeHtml(order.garment)}<br>
+    <strong>FABRIC:</strong> ${escapeHtml(order.fabric)} (${escapeHtml(order.color)})<br>
     ---------------------------------------------<br>
     <strong>ANTHROPOMETRIC MEASUREMENTS:</strong><br>
     - Total Height: ${order.measurements.height} cm<br>
@@ -1025,12 +999,12 @@ function viewCuttingSheet(index) {
     - Natural Waistline: ${order.measurements.waist} inches<br>
     - Inseam / Finished Length: ${order.measurements.length} inches<br>
     - Across Shoulder Width: ${order.measurements.shoulder || 18} inches<br>
-    - Silhouette Cut: ${order.measurements.fit}<br>
+    - Silhouette Cut: ${escapeHtml(order.measurements.fit)}<br>
     ---------------------------------------------<br>
-    <strong>EMBROIDERY MONOGRAM:</strong> [ ${order.monogram} ] in Metallic Thread<br>
-    <strong>DESIGNER INSTRUCTIONS:</strong> ${order.notes}<br>
-    <strong>ASSIGNED CHIEF COUTURIER:</strong> ${order.designer}<br>
-    <strong>PRODUCTION STATUS:</strong> ${order.stage}
+    <strong>EMBROIDERY MONOGRAM:</strong> [ ${escapeHtml(order.monogram)} ] in Metallic Thread<br>
+    <strong>DESIGNER INSTRUCTIONS:</strong> ${escapeHtml(order.notes)}<br>
+    <strong>ASSIGNED CHIEF COUTURIER:</strong> ${escapeHtml(order.designer)}<br>
+    <strong>PRODUCTION STATUS:</strong> ${escapeHtml(order.stage)}
   `;
   modal.classList.add("active");
 }
@@ -1042,17 +1016,16 @@ function closeCuttingModal() {
 
 function exportCuttingManifest() {
   const queue = XORA_STATE.bespokeQueue;
-  let csv = "Order ID,Customer,Phone,Garment,Chest,Waist,Length,Monogram,Stage\n";
-  queue.forEach(q => {
-    csv += `"${q.id}","${q.customer}","${q.phone}","${q.garment}","${q.measurements.chest}","${q.measurements.waist}","${q.measurements.length}","${q.monogram}","${q.stage}"\n`;
-  });
-  const blob = new Blob([csv], { type: "text/csv" });
+  const rows = [['Order ID', 'Customer', 'Phone', 'Garment', 'Chest', 'Waist', 'Length', 'Monogram', 'Stage']];
+  queue.forEach(order => rows.push([order.id, order.customer, order.phone, order.garment, order.measurements?.chest, order.measurements?.waist, order.measurements?.length, order.monogram, order.stage]));
+  const csv = rows.map(row => row.map(csvCell).join(',')).join('\r\n');
+  const blob = new Blob([String.fromCharCode(0xFEFF), csv], { type: 'text/csv;charset=utf-8;' });
   const url = window.URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.setAttribute("href", url);
-  a.setAttribute("download", `XORA_BESPOKE_MANIFEST_${Date.now()}.csv`);
-  a.click();
-  showNotification("📄 Exported Bespoke Cutting Manifest CSV!", "success");
+  const link = document.createElement('a');
+  link.href = url; link.download = 'XORA_BESPOKE_MANIFEST_' + Date.now() + '.csv';
+  document.body.appendChild(link); link.click(); link.remove();
+  window.setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+  showNotification('Exported demo cutting manifest CSV.', 'success');
 }
 
 // --- PWA APPLICATION SUPPORT ---
