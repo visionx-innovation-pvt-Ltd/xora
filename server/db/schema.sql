@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS orders (
   payment_provider VARCHAR(30), payment_reference VARCHAR(120), payment_url TEXT,
   subtotal_minor INTEGER NOT NULL CHECK (subtotal_minor >= 0), total_minor INTEGER NOT NULL CHECK (total_minor >= 0),
   currency CHAR(3) NOT NULL DEFAULT 'SAR', shipping_address JSONB NOT NULL,
-  paid_at TIMESTAMPTZ, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  paid_at TIMESTAMPTZ, stock_released_at TIMESTAMPTZ, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS orders_user_created_idx ON orders(user_id,created_at DESC);
 CREATE INDEX IF NOT EXISTS orders_payment_reference_idx ON orders(payment_reference);
