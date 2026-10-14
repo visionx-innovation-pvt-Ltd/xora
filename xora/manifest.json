@@ -1,0 +1,48 @@
+{
+    "name": "XORA Enterprise Atelier & Fashion App",
+    "short_name": "XORA",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#08080c",
+    "theme_color": "#08080c",
+    "description": "Exclusive Designer Wear for IT Professionals, Middle-Class Value & 1-of-1 Bespoke Made-to-Measure Studio",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "assets/hero.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/hero.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Bespoke 1-of-1 Studio",
+            "short_name": "Bespoke",
+            "description": "Custom Tailor to Your Measurements",
+            "url": "./bespoke.html"
+        },
+        {
+            "name": "IT & Value Collections",
+            "short_name": "Shop",
+            "description": "Browse Ready-to-Wear",
+            "url": "./collections.html"
+        },
+        {
+            "name": "Privilege Club",
+            "short_name": "Club",
+            "description": "Member Discounts & Corporate Perks",
+            "url": "./membership.html"
+        },
+        {
+            "name": "Enterprise Ops",
+            "short_name": "Enterprise",
+            "description": "Designer Studio & Production Pipeline",
+            "url": "./enterprise.html"
+        }
+    ]
+}

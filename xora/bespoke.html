@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#08080c">
+    <title>Bespoke 1-of-1 Studio | XORA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">XORA <span style="font-size: 0.65rem; color: var(--accent-color); font-family: var(--font-body); letter-spacing: 1px; display: block;">BESPOKE ATELIER</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html" class="active">✂️ Bespoke Studio</a>
+                <a href="membership.html">👑 Privilege Club</a>
+                <a href="enterprise.html">💼 Enterprise Ops</a>
+            </div>
+            <div class="nav-icons">
+                <a href="membership.html" id="nav-tier-badge" class="user-tier-badge">
+                    <span id="nav-tier-name">⭐ Silver Member</span>
+                </a>
+                <button aria-label="Cart" class="cart-btn" id="open-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header" style="text-align: center; padding: 7rem 1.5rem 2rem;">
+        <span class="badge-tag badge-bespoke" style="margin-bottom: 0.8rem;">1-of-1 Tailored Exclusively For You</span>
+        <h1 class="animate-up" style="font-family: var(--font-heading); font-size: 2.8rem; letter-spacing: 2px;">XORA BESPOKE ATELIER</h1>
+        <p class="animate-up delay-1" style="color: #aaa; max-width: 650px; margin: 0.5rem auto;">
+            Give us your custom body measurements & style preferences. Our Master Designers create a singular, hand-tailored blueprint crafted only for your body.
+        </p>
+    </header>
+
+    <!-- Bespoke Interactive Studio Container -->
+    <main class="bespoke-studio-wrapper">
+        <div class="bespoke-grid">
+            
+            <!-- Left Column: Live Interactive Visualizer -->
+            <div class="bespoke-canvas-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span class="badge-tag badge-designer">Live CAD Preview</span>
+                    <span id="preview-assigned-designer" style="font-size: 0.75rem; color: #ffd700;">Designer: Priya Varman</span>
+                </div>
+
+                <div class="visualizer-display" id="visualizer-container">
+                    <span class="designer-watermark">XORA ATELIER 1-OF-1</span>
+                    
+                    <!-- Dynamic SVG Garment Render -->
+                    <svg id="bespoke-live-svg" class="visualizer-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Garment body -->
+                        <path id="svg-garment-body" d="M60 20 L100 70 L140 20 L180 50 L160 220 L100 240 L40 220 L20 50 Z" fill="#0f172a" stroke="#00f3ff" stroke-width="2"/>
+                        <!-- Left Lapel -->
+                        <path id="svg-lapel-left" d="M60 20 L100 130 L80 140 L45 50 Z" fill="#1e293b" stroke="#00f3ff" stroke-width="1.5"/>
+                        <!-- Right Lapel -->
+                        <path id="svg-lapel-right" d="M140 20 L100 130 L120 140 L155 50 Z" fill="#1e293b" stroke="#00f3ff" stroke-width="1.5"/>
+                        <!-- Inner Shirt / Accent -->
+                        <polygon points="85,30 115,30 100,75" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+                        <!-- Buttons -->
+                        <circle cx="100" cy="155" r="4" fill="#ffd700"/>
+                        <circle cx="100" cy="185" r="4" fill="#ffd700"/>
+                        <!-- Breast Pocket -->
+                        <line x1="55" y1="110" x2="75" y2="105" stroke="#00f3ff" stroke-width="2"/>
+                    </svg>
+
+                    <!-- Monogram Embroidered Tag Preview -->
+                    <div class="monogram-badge-preview" id="preview-monogram-tag">XR • BESPOKE</div>
+                </div>
+
+                <!-- Live Specs Sheet Summary -->
+                <div class="live-specs-summary">
+                    <div class="spec-line">
+                        <span>Garment Type:</span>
+                        <strong id="spec-garment-type">Men's Tech Corporate Suit</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span>Selected Fabric:</span>
+                        <strong id="spec-fabric">Italian Poly-Wool Tech Stretch</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span>Selected Color:</span>
+                        <strong id="spec-color">Obsidian Navy (#0f172a)</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span>Silhouette Fit:</span>
+                        <strong id="spec-fit">Athletic Smart Desk Tapered</strong>
+                    </div>
+                    <div class="spec-line">
+                        <span>Custom Monogram:</span>
+                        <strong id="spec-monogram" style="color: #ffd700;">XR • BESPOKE</strong>
+                    </div>
+                    <div class="spec-line" style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 6px; margin-top: 6px;">
+                        <span>Estimated Turnaround:</span>
+                        <strong style="color: var(--accent-color);">5 - 7 Days (Includes Home Trial)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Step-by-Step Customizer Form -->
+            <div class="bespoke-form-card">
+                
+                <!-- STEP 1: Garment Category -->
+                <div style="margin-bottom: 2rem;">
+                    <div class="form-section-title">
+                        <span>01.</span> Select Garment Category
+                    </div>
+                    <div class="form-section-desc">Choose the foundational silhouette for your custom piece.</div>
+                    <div class="option-pill-grid" id="garment-type-options">
+                        <div class="option-pill active" data-type="suit-men" data-name="Men's Tech Corporate Suit" data-price="4999">
+                            👔 Men's Tech Suit
+                        </div>
+                        <div class="option-pill" data-type="suit-women" data-name="Women's Executive Power Suit" data-price="4799">
+                            👗 Women's Power Suit
+                        </div>
+                        <div class="option-pill" data-type="blazer-casual" data-name="Hybrid Smart-Casual Blazer" data-price="2999">
+                            🧥 Casual Tech Blazer
+                        </div>
+                        <div class="option-pill" data-type="shirt-custom" data-name="100% Giza Egyptian Shirt" data-price="1499">
+                            👕 Made-to-Measure Shirt
+                        </div>
+                        <div class="option-pill" data-type="dress-women" data-name="Women's Bespoke Formal Dress" data-price="3499">
+                            ✨ Bespoke Formal Dress
+                        </div>
+                        <div class="option-pill" data-type="trouser-bespoke" data-name="Ergonomic Desk Trousers" data-price="1899">
+                            👖 Ergonomic Trousers
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Body Measurements & AI Fit Estimator -->
+                <div style="margin-bottom: 2rem;">
+                    <div class="form-section-title">
+                        <span>02.</span> Your Exact Body Measurements
+                    </div>
+                    <div class="form-section-desc">Our master tailors cut individual paper patterns strictly according to these dimensions.</div>
+
+                    <!-- AI Smart Fit Calculator -->
+                    <div class="ai-fit-box">
+                        <div class="ai-fit-info">
+                            <span style="font-size: 1.4rem;">⚡</span>
+                            <div>
+                                <strong>AI Smart Body Fit Estimator</strong>
+                                <div style="font-size: 0.75rem; color: #aaa;">Don't have a tape measure? Auto-calculate from your height & weight!</div>
+                            </div>
+                        </div>
+                        <button type="button" class="ai-calc-btn" id="run-ai-fit-btn">Estimate Fit</button>
+                    </div>
+
+                    <!-- Measurement Inputs Grid -->
+                    <div class="measurements-grid">
+                        <div class="measure-input-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="meas-height" placeholder="e.g. 175" value="175">
+                        </div>
+                        <div class="measure-input-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="meas-weight" placeholder="e.g. 70" value="70">
+                        </div>
+                        <div class="measure-input-group">
+                            <label>Chest / Bust (in)</label>
+                            <input type="number" id="meas-chest" placeholder="e.g. 40" value="40">
+                        </div>
+                        <div class="measure-input-group">
+                            <label>Waist (in)</label>
+                            <input type="number" id="meas-waist" placeholder="e.g. 34" value="34">
+                        </div>
+                        <div class="measure-input-group">
+                            <label>Shoulders (in)</label>
+                            <input type="number" id="meas-shoulder" placeholder="e.g. 18" value="18">
+                        </div>
+                        <div class="measure-input-group">
+                            <label>Inseam / Length (in)</label>
+                            <input type="number" id="meas-length" placeholder="e.g. 32" value="32">
+                        </div>
+                    </div>
+
+                    <!-- Fit Style Preference -->
+                    <div class="measure-input-group" style="margin-bottom: 1.5rem;">
+                        <label>Fit Silhouette Preference</label>
+                        <select id="meas-fit-preference">
+                            <option value="Athletic Smart Desk Tapered" selected>Athletic Smart Desk Tapered (Recommended for IT)</option>
+                            <option value="Modern Slim Fit">Modern Slim Fit (Contoured & Sleek)</option>
+                            <option value="Classic Regular Comfort">Classic Regular Comfort (Relaxed Ease)</option>
+                            <option value="Haute Couture Structured">Haute Couture Structured (Sharper Boardroom)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Luxury Fabrics & Color Swatches -->
+                <div style="margin-bottom: 2rem;">
+                    <div class="form-section-title">
+                        <span>03.</span> Luxury Fabric & Palette
+                    </div>
+                    <div class="form-section-desc">Hand-picked premium mills with wrinkle resistance and breathable luxury.</div>
+                    
+                    <div class="option-pill-grid" id="fabric-options">
+                        <div class="option-pill active" data-fabric="Italian Poly-Wool Tech Stretch">
+                            🇮🇹 Italian Poly-Wool Stretch
+                        </div>
+                        <div class="option-pill" data-fabric="100% Royal Egyptian Giza Cotton">
+                            🇪🇬 Pure Egyptian Giza Cotton
+                        </div>
+                        <div class="option-pill" data-fabric="Breathable Bamboo-Silk Micro Twill">
+                            🎋 Bamboo-Silk Anti-Odor
+                        </div>
+                        <div class="option-pill" data-fabric="Organic European Flax Linen">
+                            🌿 Pure Organic Linen
+                        </div>
+                    </div>
+
+                    <!-- Color Swatches -->
+                    <label style="font-size: 0.75rem; color: #aaa; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Color Palette</label>
+                    <div class="swatch-row" id="color-swatches">
+                        <div class="color-swatch-circle active" data-color="#0f172a" data-name="Obsidian Navy" style="background: #0f172a;" title="Obsidian Navy"></div>
+                        <div class="color-swatch-circle" data-color="#18181b" data-name="Graphite Charcoal" style="background: #18181b;" title="Graphite Charcoal"></div>
+                        <div class="color-swatch-circle" data-color="#1e3a8a" data-name="Royal Sapphire" style="background: #1e3a8a;" title="Royal Sapphire"></div>
+                        <div class="color-swatch-circle" data-color="#064e3b" data-name="Emerald Pine" style="background: #064e3b;" title="Emerald Pine"></div>
+                        <div class="color-swatch-circle" data-color="#4c0519" data-name="Burgundy Wine" style="background: #4c0519;" title="Burgundy Wine"></div>
+                        <div class="color-swatch-circle" data-color="#f8fafc" data-name="Pearl Crisp White" style="background: #f8fafc;" title="Pearl Crisp White"></div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Custom Details & Monogram -->
+                <div style="margin-bottom: 2rem;">
+                    <div class="form-section-title">
+                        <span>04.</span> Personal Monogram & Tailor Notes
+                    </div>
+                    <div class="form-section-desc">Have your initials embroidered in metallic thread, and specify any lifestyle needs.</div>
+
+                    <div class="measure-input-group" style="margin-bottom: 1rem;">
+                        <label>Custom Monogram Text (Cuff / Inner Lining)</label>
+                        <input type="text" id="bespoke-monogram-input" maxlength="12" placeholder="e.g. J.K. or VIP-2026" value="XR • BESPOKE" class="bespoke-text-field">
+                    </div>
+
+                    <div class="measure-input-group">
+                        <label>Special Instructions for Xora Master Designer</label>
+                        <textarea id="bespoke-designer-notes" rows="3" class="bespoke-text-field" placeholder="e.g. I work 10 hours at a desk in an IT park, need extra shoulder flexibility and hidden smartphone pocket."></textarea>
+                    </div>
+                </div>
+
+                <!-- Price and Commission Button -->
+                <div style="background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--glass-border);">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.9rem; color: #888;">Bespoke Commission Price:</span>
+                        <span id="bespoke-price-display" style="font-size: 2rem; font-weight: 800; color: var(--accent-color);">₹4,999</span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: #ffd700;" id="bespoke-membership-perk-hint">
+                        💡 Gold Members get 15% off. Platinum/Obsidian VIP gets this FREE with their bespoke entitlement!
+                    </div>
+                </div>
+
+                <button type="button" class="bespoke-submit-btn" id="submit-bespoke-order-btn">
+                    Place Bespoke Commission ✂️
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-drawer-close" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            <div style="text-align: center; color: #888; margin-top: 3rem;">Your shopping bag is empty.</div>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line" style="color: #ffd700;">
+                <span id="cart-discount-label">Member Discount:</span>
+                <span id="cart-discount-amount">- ₹0</span>
+            </div>
+            <div class="cart-total-line">
+                <span>Total Amount:</span>
+                <span id="cart-final-total" style="color: var(--accent-color);">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ⚡</button>
+        </div>
+    </div>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- Mobile App Bottom Navigation Bar -->
+    <div class="mobile-app-bar">
+        <a href="index.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="collections.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Shop</span>
+        </a>
+        <a href="bespoke.html" class="app-bar-item active" style="color: #ff3399;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            <span>Bespoke</span>
+        </a>
+        <a href="membership.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Club</span>
+        </a>
+        <a href="enterprise.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Ops</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="max-width: 1200px; margin: 3rem auto 0; padding: 2rem 1.5rem; text-align: center;">
+            <div class="footer-logo">XORA ATELIER</div>
+            <p style="color: #666; font-size: 0.8rem;">Every bespoke garment is crafted with individual paper patterns & master hand-stitching.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

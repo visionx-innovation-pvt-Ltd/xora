@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#08080c">
+    <title>Privilege Club | XORA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">XORA <span style="font-size: 0.65rem; color: #ffd700; font-family: var(--font-body); letter-spacing: 1px; display: block;">PRIVILEGE CLUB</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html">✂️ Bespoke Studio</a>
+                <a href="membership.html" class="active">👑 Privilege Club</a>
+                <a href="enterprise.html">💼 Enterprise Ops</a>
+            </div>
+            <div class="nav-icons">
+                <a href="membership.html" id="nav-tier-badge" class="user-tier-badge">
+                    <span id="nav-tier-name">⭐ Silver Member</span>
+                </a>
+                <button aria-label="Cart" class="cart-btn" id="open-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header" style="text-align: center; padding: 7rem 1.5rem 2rem;">
+        <span class="badge-tag badge-value" style="margin-bottom: 0.6rem;">👑 Exclusive Member Privileges</span>
+        <h1 class="animate-up" style="font-family: var(--font-heading); font-size: 2.8rem; letter-spacing: 2px;">XORA PRIVILEGE CLUB</h1>
+        <p class="animate-up delay-1" style="color: #aaa; max-width: 650px; margin: 0.5rem auto;">
+            Unlock steep designer discounts, complimentary 1-of-1 Bespoke Tailored Outfits, and specialized corporate perks for IT industry employees.
+        </p>
+
+        <!-- Current Membership Status Indicator -->
+        <div style="background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.3); border-radius: 30px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 24px; margin-top: 1.5rem;">
+            <span>Current Active Status:</span>
+            <strong id="active-tier-status-text" style="color: #ffd700; font-family: var(--font-heading);">SILVER EXPLORER</strong>
+        </div>
+    </header>
+
+    <!-- IT Corporate Tie-Up Verification Box -->
+    <section style="max-width: 900px; margin: 0 auto 3rem; padding: 0 1.5rem;">
+        <div style="background: linear-gradient(135deg, rgba(0, 243, 255, 0.08), rgba(20, 20, 35, 0.9)); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 16px; padding: 1.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+                <span class="badge-tag badge-it">💻 IT Corporate Benefit Program</span>
+                <h3 style="font-size: 1.3rem; margin: 0.5rem 0 0.3rem;">Work in Tech? Get Gold Club Benefits Free</h3>
+                <p style="color: #aaa; font-size: 0.85rem; max-width: 500px;">
+                    Employees of TCS, Infosys, Zoho, Wipro, Cognizant, Microsoft, Google, etc. receive instant Gold tier perks through corporate partnership.
+                </p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="it-company-input" placeholder="e.g. Zoho, TCS, Infosys..." style="padding: 10px 14px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-size: 0.85rem;">
+                <button type="button" class="cta-btn" id="verify-it-corp-btn" style="padding: 10px 18px; font-size: 0.8rem; background: var(--accent-color); color: #000; border: none; font-weight: 700;">Verify Corporate ID</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Tiers Grid -->
+    <main class="membership-grid">
+        <!-- Silver Tier -->
+        <div class="membership-card scroll-reveal">
+            <div class="tier-header">
+                <span class="badge-tag">Free Entry</span>
+                <h4 class="tier-title" style="margin-top: 0.5rem;">SILVER EXPLORER</h4>
+                <div class="tier-price">₹0 <span>/ lifetime</span></div>
+            </div>
+            <ul class="tier-perks">
+                <li>5% Welcome Discount on first purchase</li>
+                <li>Access to all ready-to-wear IT & Value drops</li>
+                <li>Digital body measurement profile storage</li>
+                <li>Standard delivery across India</li>
+            </ul>
+            <button class="tier-select-btn" id="btn-tier-Silver" onclick="activateTier('Silver')">Selected Tier</button>
+        </div>
+
+        <!-- Gold Tier -->
+        <div class="membership-card gold-tier scroll-reveal">
+            <div class="tier-header">
+                <span class="badge-tag badge-value">Ideal for IT & Value</span>
+                <h4 class="tier-title" style="color: #ffd700; margin-top: 0.5rem;">GOLD CLUB</h4>
+                <div class="tier-price">₹999 <span>/ year</span></div>
+            </div>
+            <ul class="tier-perks">
+                <li><strong>Flat 15% OFF</strong> on all XORA designer collections</li>
+                <li>Free IT corporate tie-up eligibility</li>
+                <li>1 Complimentary Garment Alteration voucher</li>
+                <li>Priority queue for Bespoke 1-of-1 Studio customizers</li>
+                <li>Free Express Shipping on every order</li>
+            </ul>
+            <button class="tier-select-btn" id="btn-tier-Gold" onclick="activateTier('Gold')">Activate Gold Club</button>
+        </div>
+
+        <!-- Platinum Tier -->
+        <div class="membership-card platinum-tier scroll-reveal">
+            <div class="tier-header">
+                <span class="badge-tag badge-it">Executive Value</span>
+                <h4 class="tier-title" style="color: var(--accent-color); margin-top: 0.5rem;">PLATINUM ELITE</h4>
+                <div class="tier-price">₹2,499 <span>/ year</span></div>
+            </div>
+            <ul class="tier-perks">
+                <li><strong>Flat 20% OFF</strong> on all purchases</li>
+                <li><strong>1 Free 1-of-1 Bespoke Tailored Garment</strong> per year</li>
+                <li>Dedicated Wardrobe Stylist via WhatsApp</li>
+                <li>Unlimited free alterations for 1 year</li>
+                <li>Early 48-Hour access to festive & exclusive drops</li>
+            </ul>
+            <button class="tier-select-btn" id="btn-tier-Platinum" onclick="activateTier('Platinum')">Upgrade to Platinum</button>
+        </div>
+
+        <!-- Obsidian VIP -->
+        <div class="membership-card obsidian-tier scroll-reveal">
+            <div class="tier-header">
+                <span class="badge-tag badge-bespoke">Haute Couture VIP</span>
+                <h4 class="tier-title" style="color: #ff3399; margin-top: 0.5rem;">OBSIDIAN VIP</h4>
+                <div class="tier-price">₹4,999 <span>/ year</span></div>
+            </div>
+            <ul class="tier-perks">
+                <li><strong>Flat 25% OFF</strong> site-wide</li>
+                <li><strong>3 Free 1-of-1 Bespoke Tailored Outfits</strong> per year</li>
+                <li>Direct 1-on-1 Video Consultation with Chief Couturier</li>
+                <li>Luxury Fabric Swatch Box sent directly to your home</li>
+                <li>VIP Invitations to annual Xora Fashion Week gala</li>
+            </ul>
+            <button class="tier-select-btn" id="btn-tier-Obsidian" onclick="activateTier('Obsidian')">Join Obsidian VIP</button>
+        </div>
+    </main>
+
+    <!-- Comparison Matrix -->
+    <section style="max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem;">
+        <div class="section-header">
+            <h3>PRIVILEGE COMPARISON MATRIX</h3>
+            <p>Detailed breakdown of what you receive at each tier</p>
+        </div>
+        <div class="enterprise-table-card">
+            <table class="enterprise-table">
+                <thead>
+                    <tr>
+                        <th>Feature / Perk</th>
+                        <th>Silver</th>
+                        <th>Gold</th>
+                        <th>Platinum</th>
+                        <th>Obsidian VIP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Site-wide Discount</td>
+                        <td>5% (1st order)</td>
+                        <td style="color: #ffd700; font-weight: bold;">15% Flat</td>
+                        <td style="color: var(--accent-color); font-weight: bold;">20% Flat</td>
+                        <td style="color: #ff3399; font-weight: bold;">25% Flat</td>
+                    </tr>
+                    <tr>
+                        <td>Free 1-of-1 Bespoke Outfits</td>
+                        <td>-</td>
+                        <td>Priority Slot</td>
+                        <td style="color: var(--accent-color); font-weight: bold;">1 Outfit / Year</td>
+                        <td style="color: #ff3399; font-weight: bold;">3 Outfits / Year</td>
+                    </tr>
+                    <tr>
+                        <td>IT Corporate Tie-Up Benefit</td>
+                        <td>-</td>
+                        <td>✓ Included</td>
+                        <td>✓ Included</td>
+                        <td>✓ Executive Pass</td>
+                    </tr>
+                    <tr>
+                        <td>Free Alterations</td>
+                        <td>Paid</td>
+                        <td>1 Free Pass</td>
+                        <td>Full Year Warranty</td>
+                        <td>Lifetime Free</td>
+                    </tr>
+                    <tr>
+                        <td>Fabric Swatch Home Box</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>Optional (₹499)</td>
+                        <td>✓ Free Luxury Box</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-drawer-close" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            <div style="text-align: center; color: #888; margin-top: 3rem;">Your shopping bag is empty.</div>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line" style="color: #ffd700;">
+                <span id="cart-discount-label">Member Discount:</span>
+                <span id="cart-discount-amount">- ₹0</span>
+            </div>
+            <div class="cart-total-line">
+                <span>Total Amount:</span>
+                <span id="cart-final-total" style="color: var(--accent-color);">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ⚡</button>
+        </div>
+    </div>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- Mobile App Bottom Navigation Bar -->
+    <div class="mobile-app-bar">
+        <a href="index.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="collections.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Shop</span>
+        </a>
+        <a href="bespoke.html" class="app-bar-item" style="color: #ff3399;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            <span>Bespoke</span>
+        </a>
+        <a href="membership.html" class="app-bar-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Club</span>
+        </a>
+        <a href="enterprise.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Ops</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; text-align: center;">
+            <div class="footer-logo">XORA</div>
+            <p style="color: #666; font-size: 0.8rem;">XORA Privilege Club Membership Terms apply. Discounts automatically reflected at checkout.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

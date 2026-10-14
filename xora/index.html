@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#08080c">
+    <meta name="description" content="XORA - Exclusive Casual & Formal Mens and Ladies Fashion. Specialized in IT Professionals Techwear, Middle-Class Value Luxury & 1-of-1 Bespoke Designer Customization.">
+    <title>XORA | Designer House & Bespoke Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/hero.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- PWA App Install Banner -->
+    <div id="pwa-install-banner" class="app-install-banner">
+        <div>
+            <strong>📲 Install XORA Enterprise App</strong>
+            <span style="opacity: 0.8; margin-left: 8px;">Fast, seamless shopping & offline bespoke tracking</span>
+        </div>
+        <div>
+            <button id="install-app-btn" class="install-btn">Install App</button>
+            <button id="close-pwa-banner" class="banner-close" aria-label="Close Banner">×</button>
+        </div>
+    </div>
+
+    <!-- Page Loader -->
+    <div id="loader">
+        <div class="loader-content">
+            <h1 class="glitch" data-text="XORA">XORA</h1>
+            <p style="color: #888; font-size: 0.9rem; letter-spacing: 3px; margin-top: 5px;">EXCLUSIVE DESIGNER HOUSE</p>
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">XORA <span style="font-size: 0.65rem; color: var(--accent-color); font-family: var(--font-body); letter-spacing: 1px; display: block;">HAUTE COUTURE & TECHWEAR</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html">✂️ Bespoke Studio</a>
+                <a href="membership.html">👑 Privilege Club</a>
+                <a href="enterprise.html">💼 Enterprise Ops</a>
+            </div>
+            <div class="nav-icons">
+                <a href="membership.html" id="nav-tier-badge" class="user-tier-badge">
+                    <span id="nav-tier-name">⭐ Silver Member</span>
+                </a>
+                <button aria-label="Cart" class="cart-btn" id="open-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-bg">
+            <img src="assets/hero.png" alt="Xora Atelier & Boutique" class="hero-img">
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="badge-tag badge-designer animate-up" style="margin-bottom: 1rem;">100% In-House XORA Designer Originals</div>
+            <h1 class="neon-text animate-up delay-2">PRECISION STYLE.<br>BESPOKE FOR YOU.</h1>
+            <p class="animate-up delay-3">
+                Engineered fashion for <strong>IT Professionals</strong> with 12-hour desk ergonomic stretch, alongside <strong>Smart-Value Luxury</strong> for middle-class families. Plus, our signature <strong>1-of-1 Bespoke Designer Studio</strong> crafted exclusively to your body measurements.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;" class="animate-up delay-4">
+                <a href="#featured-shop" class="cta-btn">Shop Collections <span class="arrow">→</span></a>
+                <a href="bespoke.html" class="cta-btn" style="background: rgba(0, 243, 255, 0.15); border-color: var(--accent-color);">✂️ Bespoke 1-of-1 Studio</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sub-Brand Marquee (XORA Proprietary Designer Lines) -->
+    <section class="brands-section">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>XORA TECH-WEAR</span><span>•</span>
+                <span>XORA BESPOKE ATELIER</span><span>•</span>
+                <span>XORA VALUE LUXE</span><span>•</span>
+                <span>XORA FORMAL EXECUTIVE</span><span>•</span>
+                <span>XORA CASUAL URBANE</span><span>•</span>
+                <span>XORA PRIVILEGE CLUB</span><span>•</span>
+                <span>XORA TECH-WEAR</span><span>•</span>
+                <span>XORA BESPOKE ATELIER</span><span>•</span>
+                <span>XORA VALUE LUXE</span><span>•</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialized Audience Spotlight (IT Professionals & Middle-Class Value) -->
+    <section class="audience-spotlight">
+        <!-- IT Professionals Card -->
+        <div class="spotlight-card scroll-reveal">
+            <span class="badge-tag badge-it">💻 IT Professionals Collection</span>
+            <h2>ENGINEERED FOR TECH WORKFORCE</h2>
+            <p>Designed specifically for software engineers, IT leads, and tech executives who spend 10+ hours between code sprints and client boardrooms.</p>
+            <ul class="spotlight-features">
+                <li><span>✦</span> <strong>4-Way Active Stretch:</strong> Unrestricted comfort while sitting & typing all day.</li>
+                <li><span>✦</span> <strong>Zero-Iron & Anti-Crease:</strong> Wrinkle-free tech cotton, ready for instant client video calls.</li>
+                <li><span>✦</span> <strong>Breathable & Anti-Odor:</strong> Smart thermoregulating bamboo micro-twill fabrics.</li>
+                <li><span>✦</span> <strong>Smart Casual to Formal:</strong> Convertible blazers with concealed magnetic pockets for earbuds & phones.</li>
+            </ul>
+            <a href="collections.html?cat=it" class="cta-btn" style="padding: 0.8rem 1.8rem; font-size: 0.85rem;">Browse IT Workwear →</a>
+        </div>
+
+        <!-- Middle-Class Smart Value Luxury Card -->
+        <div class="spotlight-card value-card scroll-reveal">
+            <span class="badge-tag badge-value">🌟 Smart-Value Everyday Luxury</span>
+            <h2>HIGH-END DESIGN, HONEST INDIAN PRICING</h2>
+            <p>Why pay exorbitant foreign brand markups? XORA delivers top-tier designer cuts, master stitching, and pure fabrics directly to middle-class households at authentic prices.</p>
+            <ul class="spotlight-features">
+                <li><span>✦</span> <strong>Accessible Range:</strong> Premium shirts, trousers & festive kurtis starting from just ₹699 to ₹1,499.</li>
+                <li><span>✦</span> <strong>Long-Lasting Durability:</strong> Double-reinforced seams, color-lock tech tested for 100+ washes.</li>
+                <li><span>✦</span> <strong>Value Family Bundles:</strong> Buy 2 Get 1 Free offers & Zero-Cost 3-Month EMI options.</li>
+                <li><span>✦</span> <strong>Master Tailor Cuts:</strong> Rich designer drape without luxury retail inflation.</li>
+            </ul>
+            <a href="collections.html?cat=value" class="cta-btn" style="padding: 0.8rem 1.8rem; font-size: 0.85rem; border-color: #ffd700; color: #ffd700;">Explore Value Luxury →</a>
+        </div>
+    </section>
+
+    <!-- Curated Designer Collections Showcase -->
+    <section id="featured-shop" class="categories" style="padding: 1rem 0;">
+        <div class="section-header">
+            <h3>XORA DESIGNER COLLECTIONS</h3>
+            <p>Shop the full XORA range, with separate menswear, womenswear, kids and teen options</p>
+        </div>
+
+        <div class="catalog-controls" aria-label="Product search and audience filters">
+            <label class="catalog-control">
+                <span>Search products</span>
+                <input type="search" id="catalog-search-input" placeholder="Search name, fabric, or style">
+            </label>
+            <label class="catalog-control">
+                <span>Shop by gender</span>
+                <select id="catalog-gender-filter">
+                    <option value="all">All genders</option>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                    <option value="boys">Boys</option>
+                    <option value="girls">Girls</option>
+                </select>
+            </label>
+            <label class="catalog-control">
+                <span>Shop by age</span>
+                <select id="catalog-age-filter">
+                    <option value="all">All ages</option>
+                    <option value="kids">Kids (3–12)</option>
+                    <option value="teens">Teens (13–17)</option>
+                    <option value="adult">Adults (18+)</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="catalog-filters">
+            <button class="filter-btn active" data-filter="all">All Designs</button>
+            <button class="filter-btn" data-filter="it">💻 IT Professionals</button>
+            <button class="filter-btn" data-filter="value">🌟 Middle-Class Value</button>
+            <button class="filter-btn" data-filter="men">Men</button>
+            <button class="filter-btn" data-filter="women">Women</button>
+            <button class="filter-btn" data-filter="men-formal">🤵 Men Formal</button>
+            <button class="filter-btn" data-filter="men-casual">👕 Men Casual</button>
+            <button class="filter-btn" data-filter="women-formal">👗 Women Formal</button>
+            <button class="filter-btn" data-filter="women-casual">✨ Women Casual</button>
+        </div>
+
+        <p id="catalog-results-count" class="catalog-results-count" aria-live="polite"></p>
+        <div class="product-grid" id="main-product-grid" style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+        </div>
+    </section>
+
+    <!-- ✂️ Signature 1-of-1 Bespoke Made-to-Measure Studio Spotlight -->
+    <section class="bespoke-feature-section" style="background: radial-gradient(circle at 50% 50%, rgba(25, 20, 35, 0.9), rgba(8, 8, 12, 1)); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); padding: 5rem 1.5rem; margin: 4rem 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+            <div class="scroll-reveal">
+                <span class="badge-tag badge-bespoke">✂️ Exclusive 1-of-1 Made-to-Measure</span>
+                <h2 style="font-family: var(--font-heading); font-size: 2.3rem; margin: 1rem 0 1.5rem; line-height: 1.2;">
+                    YOU PROVIDE YOUR SIZES.<br>
+                    <span style="color: var(--accent-color);">WE DESIGN ONLY FOR YOU.</span>
+                </h2>
+                <p style="color: rgba(255, 255, 255, 0.75); line-height: 1.8; margin-bottom: 1.5rem;">
+                    Every human body is unique. At XORA Atelier, customer measurements (Chest, Waist, Shoulders, Inseam & Fit preference) are handed directly to our <strong>Chief Fashion Designers</strong>. We cut dedicated paper CAD patterns, hand-select your fabric, embroider your personal monogram initials, and deliver an exclusive 1-of-1 masterpiece crafted solely for your physique.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 10px;">
+                        <div style="color: var(--accent-color); font-weight: 700; font-size: 1.1rem;">⚡ AI Fit Estimator</div>
+                        <div style="font-size: 0.8rem; color: #888; margin-top: 4px;">Input height & weight; our algorithm generates precision tailor metrics.</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 1rem; border-radius: 10px;">
+                        <div style="color: #ffd700; font-weight: 700; font-size: 1.1rem;">🧵 Master Monogram</div>
+                        <div style="font-size: 0.8rem; color: #888; margin-top: 4px;">Gold or Silver thread embroidery of your initials on cuff & inner lining.</div>
+                    </div>
+                </div>
+                <a href="bespoke.html" class="cta-btn" style="background: linear-gradient(135deg, var(--accent-color), #9d4edd); border: none; color: #000; font-weight: 700;">Open Bespoke 3D Studio →</a>
+            </div>
+
+            <!-- Visual Preview Card -->
+            <div class="scroll-reveal" style="text-align: center;">
+                <div style="background: rgba(18, 18, 26, 0.95); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 20px; padding: 2rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7); position: relative;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="font-size: 0.75rem; color: var(--accent-color); font-weight: 700; letter-spacing: 1px;">XORA ATELIER BLUEPRINT #892</span>
+                        <span class="status-pill status-tailoring">1-of-1 Tailoring</span>
+                    </div>
+                    <!-- Garment Visual representation -->
+                    <div style="height: 260px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(0, 243, 255, 0.05), transparent);">
+                        <svg width="180" height="240" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Suit Jacket Outline -->
+                            <path d="M60 20 L100 70 L140 20 L180 50 L160 220 L100 240 L40 220 L20 50 Z" fill="#141a29" stroke="#00f3ff" stroke-width="2"/>
+                            <!-- Lapels -->
+                            <path d="M60 20 L100 130 L80 140 L45 50 Z" fill="#1f283d" stroke="#00f3ff" stroke-width="1.5"/>
+                            <path d="M140 20 L100 130 L120 140 L155 50 Z" fill="#1f283d" stroke="#00f3ff" stroke-width="1.5"/>
+                            <!-- Inner Shirt -->
+                            <polygon points="85,30 115,30 100,75" fill="#ffffff" stroke="#ddd" stroke-width="1"/>
+                            <!-- Buttons -->
+                            <circle cx="100" cy="155" r="4" fill="#ffd700"/>
+                            <circle cx="100" cy="185" r="4" fill="#ffd700"/>
+                            <!-- Breast Pocket -->
+                            <line x1="55" y1="110" x2="75" y2="105" stroke="#00f3ff" stroke-width="2"/>
+                            <!-- Monogram -->
+                            <text x="56" y="100" fill="#ffd700" font-size="8" font-family="monospace">XR-BESPOKE</text>
+                        </svg>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: left; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 10px; font-size: 0.85rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="color: #888;">Assigned Master Designer:</span>
+                            <strong style="color: #fff;">Aisha Varman (Senior Couturier)</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="color: #888;">Fabric:</span>
+                            <span style="color: var(--accent-color);">Pure Egyptian Giza Cotton • Midnight Blue</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #888;">Custom Fit:</span>
+                            <span style="color: #ffd700;">Athletic Smart-Desk Tapered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 👑 XORA Privilege Membership Club Section -->
+    <section id="memberships" class="membership-section" style="padding: 2rem 0;">
+        <div class="section-header">
+            <h3>XORA PRIVILEGE CLUB</h3>
+            <p>Exclusive privileges, member discounts & complimentary custom tailoring passes</p>
+        </div>
+
+        <div class="membership-grid">
+            <!-- Silver (Explorer) -->
+            <div class="membership-card scroll-reveal">
+                <div class="tier-header">
+                    <span class="badge-tag">Free Membership</span>
+                    <h4 class="tier-title" style="margin-top: 0.5rem;">SILVER EXPLORER</h4>
+                    <div class="tier-price">₹0 <span>/ lifetime</span></div>
+                </div>
+                <ul class="tier-perks">
+                    <li>5% Welcome Discount on first purchase</li>
+                    <li>Access to all IT & Value Collections</li>
+                    <li>Digital Size Guide & Fit Saving</li>
+                    <li>Standard Doorstep Delivery</li>
+                </ul>
+                <button class="tier-select-btn" onclick="activateTier('Silver')">Selected Tier</button>
+            </div>
+
+            <!-- Gold (IT Corporate & Value Shopper) -->
+            <div class="membership-card gold-tier scroll-reveal">
+                <div class="tier-header">
+                    <span class="badge-tag badge-value">Most Popular for IT Pros</span>
+                    <h4 class="tier-title" style="color: #ffd700; margin-top: 0.5rem;">GOLD CLUB</h4>
+                    <div class="tier-price">₹999 <span>/ year</span></div>
+                </div>
+                <ul class="tier-perks">
+                    <li><strong>Flat 15% OFF</strong> on all readymade designs</li>
+                    <li>Corporate IT Employee Discount linkage (TCS, Infosys, Zoho, Cognizant, etc.)</li>
+                    <li>1 Complimentary Garment Alteration</li>
+                    <li>Priority queue for Bespoke 1-of-1 Studio orders</li>
+                    <li>Free Express Shipping across India</li>
+                </ul>
+                <button class="tier-select-btn" onclick="activateTier('Gold')">Join Gold Club</button>
+            </div>
+
+            <!-- Platinum (Executive & Family) -->
+            <div class="membership-card platinum-tier scroll-reveal">
+                <div class="tier-header">
+                    <span class="badge-tag badge-it">Executive Value</span>
+                    <h4 class="tier-title" style="color: var(--accent-color); margin-top: 0.5rem;">PLATINUM ELITE</h4>
+                    <div class="tier-price">₹2,499 <span>/ year</span></div>
+                </div>
+                <ul class="tier-perks">
+                    <li><strong>Flat 20% OFF</strong> site-wide & in-app</li>
+                    <li><strong>1 Free 1-of-1 Bespoke Tailored Garment</strong> included</li>
+                    <li>Dedicated Wardrobe Stylist via WhatsApp</li>
+                    <li>Free alteration warranty for 1 full year</li>
+                    <li>Early 48-Hour access to festive & seasonal launches</li>
+                </ul>
+                <button class="tier-select-btn" onclick="activateTier('Platinum')">Upgrade to Platinum</button>
+            </div>
+
+            <!-- Obsidian Black VIP (Haute Couture) -->
+            <div class="membership-card obsidian-tier scroll-reveal">
+                <div class="tier-header">
+                    <span class="badge-tag badge-bespoke">Ultimate Couture</span>
+                    <h4 class="tier-title" style="color: #ff3399; margin-top: 0.5rem;">OBSIDIAN VIP</h4>
+                    <div class="tier-price">₹4,999 <span>/ year</span></div>
+                </div>
+                <ul class="tier-perks">
+                    <li><strong>Flat 25% OFF</strong> on all creations</li>
+                    <li><strong>3 Free 1-of-1 Bespoke Tailored Outfits</strong> per year</li>
+                    <li>1-on-1 Video Consultation with Chief Designer</li>
+                    <li>Luxury Fabric Swatch Box sent directly to your home</li>
+                    <li>Lifetime free alterations & concierge support</li>
+                </ul>
+                <button class="tier-select-btn" onclick="activateTier('Obsidian')">Join Obsidian VIP</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 💼 Enterprise Portal Teaser -->
+    <section class="enterprise-cta-section" style="max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem;">
+        <div style="background: linear-gradient(135deg, rgba(20, 25, 45, 0.9), rgba(12, 14, 25, 0.95)); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 20px; padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <span class="badge-tag badge-it">Enterprise & Operations Studio</span>
+                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; margin: 0.6rem 0;">Are you a XORA Designer or Corporate Manager?</h3>
+                <p style="color: #aaa; max-width: 600px; font-size: 0.95rem;">
+                    Access real-time bespoke customer order queues, cutting blueprints, measurement specs, corporate IT staff uniforms, and production tracking in our Enterprise Portal.
+                </p>
+            </div>
+            <a href="enterprise.html" class="cta-btn" style="background: var(--accent-color); color: #000; font-weight: 700; border: none;">Open Enterprise Portal 💼</a>
+        </div>
+    </section>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-drawer-close" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            <!-- Dynamic Cart Items -->
+            <div style="text-align: center; color: #888; margin-top: 3rem;">Your shopping bag is empty.</div>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line" style="color: #ffd700;">
+                <span id="cart-discount-label">Member Discount (0%):</span>
+                <span id="cart-discount-amount">- ₹0</span>
+            </div>
+            <div class="cart-summary-line">
+                <span>Estimated Delivery:</span>
+                <span style="color: #2ecc71;">FREE</span>
+            </div>
+            <div class="cart-total-line">
+                <span>Total Amount:</span>
+                <span id="cart-final-total" style="color: var(--accent-color);">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ⚡</button>
+        </div>
+    </div>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- Mobile App Bottom Navigation Bar -->
+    <div class="mobile-app-bar">
+        <a href="index.html" class="app-bar-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="collections.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Shop</span>
+        </a>
+        <a href="bespoke.html" class="app-bar-item" style="color: #ff3399;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            <span>Bespoke</span>
+        </a>
+        <a href="membership.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Club</span>
+        </a>
+        <a href="enterprise.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Ops</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; text-align: center;">
+            <div class="footer-logo" style="font-size: 2rem; margin-bottom: 0.5rem;">XORA</div>
+            <p style="color: #888; font-size: 0.9rem; max-width: 600px; margin: 0 auto 1.5rem;">
+                Official Designer House & Atelier. Specialized in IT Professionals Techwear, Middle-Class Value Elegance, and 1-of-1 Bespoke Made-to-Measure Creations.
+            </p>
+            <div class="footer-links" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html">Bespoke Studio</a>
+                <a href="membership.html">Privilege Club</a>
+                <a href="enterprise.html">Enterprise Portal</a>
+                <a href="#">Size & Measurement Guide</a>
+                <a href="#">Corporate Tie-Ups</a>
+            </div>
+            <p style="color: #666; font-size: 0.8rem;">&copy; 2026 XORA Fashion Technologies & Haute Couture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#08080c">
+    <title>Enterprise Portal & Designer Studio | XORA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">XORA <span style="font-size: 0.65rem; color: var(--accent-color); font-family: var(--font-body); letter-spacing: 1px; display: block;">ENTERPRISE ATELIER</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html">✂️ Bespoke Studio</a>
+                <a href="membership.html">👑 Privilege Club</a>
+                <a href="enterprise.html" class="active">💼 Enterprise Ops</a>
+            </div>
+            <div class="nav-icons">
+                <span class="user-tier-badge" style="background: rgba(0, 243, 255, 0.15); border-color: var(--accent-color); color: var(--accent-color);">
+                    💼 Designer Admin
+                </span>
+                <button aria-label="Cart" class="cart-btn" id="open-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header" style="text-align: center; padding: 7rem 1.5rem 2rem;">
+        <span class="badge-tag badge-designer" style="margin-bottom: 0.6rem;">Enterprise Management & Atelier Ops</span>
+        <h1 class="animate-up" style="font-family: var(--font-heading); font-size: 2.8rem; letter-spacing: 2px;">XORA ENTERPRISE OPS</h1>
+        <p class="animate-up delay-1" style="color: #aaa; max-width: 700px; margin: 0.5rem auto;">
+            Central management portal for XORA Master Designers and store operators to oversee 1-of-1 bespoke tailor queues, corporate IT accounts, member analytics, and production lifecycle.
+        </p>
+    </header>
+
+    <main class="enterprise-wrapper">
+        
+        <!-- Enterprise KPIs -->
+        <div class="enterprise-kpis">
+            <div class="kpi-card">
+                <div class="kpi-icon" style="color: var(--accent-color);">✂️</div>
+                <div>
+                    <div class="kpi-value" id="kpi-bespoke-count">12</div>
+                    <div class="kpi-label">Active Bespoke Commissions</div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="color: #ffd700;">👑</div>
+                <div>
+                    <div class="kpi-value" id="kpi-members-count">1,840</div>
+                    <div class="kpi-label">Privilege Club Members</div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="color: #00f3ff;">💻</div>
+                <div>
+                    <div class="kpi-value">48</div>
+                    <div class="kpi-label">IT Corporate Accounts</div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon" style="color: #2ecc71;">📈</div>
+                <div>
+                    <div class="kpi-value">₹24.8L</div>
+                    <div class="kpi-label">Monthly Gross Revenue</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bespoke Commissions Queue Table -->
+        <div class="enterprise-table-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem;">✂️ 1-OF-1 BESPOKE PRODUCTION PIPELINE</h3>
+                    <p style="color: #888; font-size: 0.85rem;">Customer measurement commissions undergoing custom tailoring.</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="filter-btn active" id="btn-refresh-queue" onclick="renderEnterpriseQueue()">🔄 Sync Pipeline</button>
+                    <button class="filter-btn" onclick="exportCuttingManifest()">📄 Export Cutting Manifest</button>
+                </div>
+            </div>
+
+            <table class="enterprise-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer / Details</th>
+                        <th>Garment Silhouette</th>
+                        <th>Measurements (H / C / W / L)</th>
+                        <th>Monogram & Notes</th>
+                        <th>Assigned Couturier</th>
+                        <th>Current Stage</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="enterprise-queue-tbody">
+                    <!-- Populated dynamically by app.js -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Corporate IT Accounts & Middle-Class Demand Matrix -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+            <!-- IT Corporate Demand -->
+            <div class="spotlight-card">
+                <span class="badge-tag badge-it">💻 Corporate IT Programs</span>
+                <h3 style="margin: 0.8rem 0; font-size: 1.3rem;">Top Tech Hub Enrollments</h3>
+                <ul class="spotlight-features">
+                    <li><span>✦</span> <strong>TCS (Siruseri & Manyata):</strong> 580 Employees enrolled (4-Way Stretch Tech-Oxfords)</li>
+                    <li><span>✦</span> <strong>Zoho Corporation (Estancia):</strong> 420 Employees (Wrinkle-Free Polo & Chinos)</li>
+                    <li><span>✦</span> <strong>Infosys (Electronic City):</strong> 340 Employees (Hybrid Casual Friday Blazers)</li>
+                    <li><span>✦</span> <strong>Cognizant (DLF IT Park):</strong> 290 Employees (Bespoke Executive Power Suits)</li>
+                </ul>
+            </div>
+
+            <!-- Fabric & Mill Inventory Status -->
+            <div class="spotlight-card value-card">
+                <span class="badge-tag badge-value">🧵 Master Mill Inventory</span>
+                <h3 style="margin: 0.8rem 0; font-size: 1.3rem;">Raw Fabric Reserves</h3>
+                <ul class="spotlight-features">
+                    <li><span>✦</span> <strong>Egyptian Giza Cotton (60s Twill):</strong> 1,200 Meters available (Adequate)</li>
+                    <li><span>✦</span> <strong>Italian Poly-Wool Tech Stretch:</strong> 850 Meters available (Adequate)</li>
+                    <li><span>✦</span> <strong>Eco Bamboo-Silk Micro-Twill:</strong> 420 Meters (Reorder recommended)</li>
+                    <li><span>✦</span> <strong>Organic European Flax Linen:</strong> 610 Meters available</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Cutting Sheet Modal -->
+    <div id="cutting-sheet-modal" class="quick-view-modal">
+        <div class="quick-view-content" style="max-width: 650px;">
+            <button class="quick-view-close" onclick="closeCuttingModal()">&times;</button>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <span class="badge-tag badge-bespoke">Master Cutting Blueprint</span>
+                <h2 id="modal-order-title" style="font-family: var(--font-heading); font-size: 1.6rem; margin-top: 0.5rem;">#XORA-BESPOKE-8042</h2>
+            </div>
+            <div id="modal-cutting-details" style="background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+                <!-- Filled dynamically -->
+            </div>
+            <div style="margin-top: 1.5rem; text-align: right;">
+                <button class="cta-btn" onclick="window.print()" style="font-size: 0.85rem; padding: 10px 20px;">🖨️ Print Blueprint</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-drawer-close" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            <div style="text-align: center; color: #888; margin-top: 3rem;">Your shopping bag is empty.</div>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line" style="color: #ffd700;">
+                <span id="cart-discount-label">Member Discount:</span>
+                <span id="cart-discount-amount">- ₹0</span>
+            </div>
+            <div class="cart-total-line">
+                <span>Total Amount:</span>
+                <span id="cart-final-total" style="color: var(--accent-color);">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ⚡</button>
+        </div>
+    </div>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- Mobile App Bottom Navigation Bar -->
+    <div class="mobile-app-bar">
+        <a href="index.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="collections.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Shop</span>
+        </a>
+        <a href="bespoke.html" class="app-bar-item" style="color: #ff3399;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            <span>Bespoke</span>
+        </a>
+        <a href="membership.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Club</span>
+        </a>
+        <a href="enterprise.html" class="app-bar-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Ops</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; text-align: center;">
+            <div class="footer-logo">XORA ENTERPRISE</div>
+            <p style="color: #666; font-size: 0.8rem;">Internal Enterprise Portal for XORA Designers & Store Directors.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

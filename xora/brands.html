@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#08080c">
+    <title>Designer Sub-Labels | XORA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">XORA <span style="font-size: 0.65rem; color: var(--accent-color); font-family: var(--font-body); letter-spacing: 1px; display: block;">DESIGNER LABELS</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="bespoke.html">✂️ Bespoke Studio</a>
+                <a href="membership.html">👑 Privilege Club</a>
+                <a href="enterprise.html">💼 Enterprise Ops</a>
+            </div>
+            <div class="nav-icons">
+                <a href="membership.html" id="nav-tier-badge" class="user-tier-badge">
+                    <span id="nav-tier-name">⭐ Silver Member</span>
+                </a>
+                <button aria-label="Cart" class="cart-btn" id="open-cart-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-counter">0</span>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header" style="text-align: center; padding: 7rem 1.5rem 2rem;">
+        <span class="badge-tag badge-designer" style="margin-bottom: 0.6rem;">Proprietary Designer Architecture</span>
+        <h1 class="animate-up" style="font-family: var(--font-heading); font-size: 2.8rem; letter-spacing: 2px;">THE XORA HOUSES</h1>
+        <p class="animate-up delay-1" style="color: #aaa; max-width: 650px; margin: 0.5rem auto;">
+            Every sub-label under XORA is crafted by our in-house fashion designers, targeting specific lifestyle ergonomics and economic accessibility.
+        </p>
+    </header>
+
+    <!-- Sub-Labels Grid -->
+    <main style="max-width: 1200px; margin: 2rem auto 4rem; padding: 0 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+            
+            <div class="spotlight-card scroll-reveal">
+                <span class="badge-tag badge-it">💻 Line 01</span>
+                <h3>XORA TECH-WEAR</h3>
+                <p>Ergonomic smart formals & desk wear engineered for IT software professionals. Anti-wrinkle, 4-way stretch bamboo and poly-wool blends with hidden tech pockets.</p>
+                <a href="collections.html?cat=it" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem;">Explore Techwear →</a>
+            </div>
+
+            <div class="spotlight-card value-card scroll-reveal">
+                <span class="badge-tag badge-value">🌟 Line 02</span>
+                <h3>XORA SMART-VALUE LUXE</h3>
+                <p>Bringing high-end designer cuts to middle-class households at authentic Indian factory prices. Pure Egyptian cotton shirts from ₹799, zero luxury markup.</p>
+                <a href="collections.html?cat=value" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem; border-color:#ffd700; color:#ffd700;">Explore Value Line →</a>
+            </div>
+
+            <div class="spotlight-card scroll-reveal" style="border-color: rgba(255, 0, 128, 0.4);">
+                <span class="badge-tag badge-bespoke">✂️ Line 03</span>
+                <h3>XORA BESPOKE 1-OF-1</h3>
+                <p>Customer-specific custom tailoring. You provide your chest, waist, and length measurements; our Master Couturiers hand-tailor an exclusive piece solely for you.</p>
+                <a href="bespoke.html" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem; background: rgba(255,0,128,0.2); border-color:#ff3399;">Launch Atelier →</a>
+            </div>
+
+            <div class="spotlight-card scroll-reveal">
+                <span class="badge-tag badge-designer">🤵 Line 04</span>
+                <h3>XORA EXECUTIVE FORMAL</h3>
+                <p>Boardroom suits, classic pleated trousers, and structured blazers for corporate presentations, client pitches, and international conferences.</p>
+                <a href="collections.html?cat=men-formal" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem;">Explore Formals →</a>
+            </div>
+
+            <div class="spotlight-card scroll-reveal">
+                <span class="badge-tag badge-it">✨ Line 05</span>
+                <h3>XORA URBANE CASUAL</h3>
+                <p>Weekend flax linen shirts, breathable ring-spun denims, and bio-wash tees crafted with artisan washes and relaxed modern silhouettes.</p>
+                <a href="collections.html?cat=men-casual" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem;">Explore Casuals →</a>
+            </div>
+
+            <div class="spotlight-card value-card scroll-reveal">
+                <span class="badge-tag badge-value">👑 Line 06</span>
+                <h3>XORA FESTIVE ETHNIC</h3>
+                <p>Artisan silk Anarkali sets, jacquard Bundi jackets, and hand-embroidered Kurtas marrying heritage Indian textiles with sleek modern cuts.</p>
+                <a href="collections.html?cat=women-formal" class="cta-btn" style="padding: 6px 16px; font-size: 0.8rem; border-color:#ffd700; color:#ffd700;">Explore Festive →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>SHOPPING BAG (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-drawer-close" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cart-items-container">
+            <div style="text-align: center; color: #888; margin-top: 3rem;">Your shopping bag is empty.</div>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-summary-line">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <div class="cart-summary-line" style="color: #ffd700;">
+                <span id="cart-discount-label">Member Discount:</span>
+                <span id="cart-discount-amount">- ₹0</span>
+            </div>
+            <div class="cart-total-line">
+                <span>Total Amount:</span>
+                <span id="cart-final-total" style="color: var(--accent-color);">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout ⚡</button>
+        </div>
+    </div>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <!-- Mobile App Bottom Navigation Bar -->
+    <div class="mobile-app-bar">
+        <a href="index.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Home</span>
+        </a>
+        <a href="collections.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Shop</span>
+        </a>
+        <a href="bespoke.html" class="app-bar-item" style="color: #ff3399;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+            <span>Bespoke</span>
+        </a>
+        <a href="membership.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Club</span>
+        </a>
+        <a href="enterprise.html" class="app-bar-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Ops</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; text-align: center;">
+            <div class="footer-logo">XORA</div>
+            <p style="color: #666; font-size: 0.8rem;">Every house is 100% conceptualized and produced by XORA Designers.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
