@@ -844,21 +844,22 @@ function initBespokeCustomizer() {
   const aiBtn = document.getElementById("run-ai-fit-btn");
   if (aiBtn) {
     aiBtn.addEventListener("click", () => {
-      const h = parseFloat(document.getElementById("meas-height").value) || 175;
-      const w = parseFloat(document.getElementById("meas-weight").value) || 70;
-
-      // Smart Anthropometric Approximation Algorithm
+      const h = Number(document.getElementById("meas-height")?.value);
+      const w = Number(document.getElementById("meas-weight")?.value);
+      if (!Number.isFinite(h) || h < 100 || h > 250 || !Number.isFinite(w) || w < 20 || w > 350) {
+        showNotification("Enter height between 100–250 cm and weight between 20–350 kg.", "error");
+        return;
+      }
+      // Rough estimate only; this is not an AI model or a substitute for a tailor.
       const chestEst = Math.round(w * 0.52 + 4);
       const waistEst = Math.round(w * 0.44 + 3);
       const shoulderEst = (h * 0.103).toFixed(1);
-      const lengthEst = Math.round(h * 0.45 - 46);
-
+      const lengthEst = Math.max(15, Math.round(h * 0.45 - 46));
       document.getElementById("meas-chest").value = chestEst;
       document.getElementById("meas-waist").value = waistEst;
       document.getElementById("meas-shoulder").value = shoulderEst;
       document.getElementById("meas-length").value = lengthEst;
-
-      showNotification(`⚡ AI Calculated Tailor Metrics: Chest ${chestEst}", Waist ${waistEst}", Shoulder ${shoulderEst}"`, "success");
+      showNotification(`Estimated sizing only: chest ${chestEst}", waist ${waistEst}", shoulder ${shoulderEst}". Please confirm with a tailor.`, "info");
     });
   }
 
@@ -874,42 +875,42 @@ function initBespokeCustomizer() {
   const submitBtn = document.getElementById("submit-bespoke-order-btn");
   if (submitBtn) {
     submitBtn.addEventListener("click", () => {
-      const height = document.getElementById("meas-height").value;
-      const chest = document.getElementById("meas-chest").value;
-      const waist = document.getElementById("meas-waist").value;
-      const length = document.getElementById("meas-length").value;
-      const shoulder = document.getElementById("meas-shoulder").value;
+      const height = Number(document.getElementById("meas-height").value);
+      const chest = Number(document.getElementById("meas-chest").value);
+      const waist = Number(document.getElementById("meas-waist").value);
+      const length = Number(document.getElementById("meas-length").value);
+      const shoulder = Number(document.getElementById("meas-shoulder").value);
       const fit = fitSelect ? fitSelect.value : "Athletic Smart Desk Tapered";
-      const notes = document.getElementById("bespoke-designer-notes") ? document.getElementById("bespoke-designer-notes").value : "N/A";
-
-      const orderId = `XR-BESPOKE-${Math.floor(1000 + Math.random() * 9000)}`;
+      const notesInput = document.getElementById("bespoke-designer-notes");
+      const notes = notesInput ? notesInput.value.trim().slice(0, 1000) : "N/A";
+      if (!Number.isFinite(height) || height < 100 || height > 250 ||
+          !Number.isFinite(chest) || chest < 20 || chest > 100 ||
+          !Number.isFinite(waist) || waist < 15 || waist > 100 ||
+          !Number.isFinite(length) || length < 10 || length > 80 ||
+          !Number.isFinite(shoulder) || shoulder < 5 || shoulder > 40) {
+        showNotification("Check measurements: height 100–250 cm, chest 20–100 in, waist 15–100 in, length 10–80 in, shoulder 5–40 in.", "error");
+        return;
+      }
+      if (XORA_STATE.bespokeQueue.length >= 500) {
+        showNotification("The local demo queue is full. Clear demo data before adding another item.", "error");
+        return;
+      }
+      const orderId = "XR-BESPOKE-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
       const newCommission = {
-        id: orderId,
-        customer: "Client (" + XORA_STATE.currentTier + " Member)",
-        phone: "Not provided",
-        garment: currentType,
-        measurements: { height, chest, waist, length, shoulder, fit },
-        fabric: currentFabric,
-        color: currentColorName,
-        monogram: currentMonogram,
-        notes: notes || "1-of-1 Tailored commission",
-        designer: "Aisha Varman",
-        stage: "CAD Blueprint Approved"
+        id: orderId, customer: "Demo Client (" + XORA_STATE.currentTier + " Member)", phone: "Not provided",
+        garment: currentType, measurements: { height, chest, waist, length, shoulder, fit },
+        fabric: currentFabric, color: currentColorName, monogram: currentMonogram,
+        notes: notes || "Demo bespoke request", designer: "Demo Designer", stage: "CAD Blueprint Approved"
       };
-
       XORA_STATE.bespokeQueue.unshift(newCommission);
+      XORA_STATE.bespokeQueue = XORA_STATE.bespokeQueue.slice(0, 500);
       saveStoredValue("xoraBespokeQueue", JSON.stringify(XORA_STATE.bespokeQueue));
-
-      // Add to cart with custom meta
       addToCart(null, {
-        id: orderId,
-        name: `Bespoke 1-of-1: ${currentType}`,
-        price: currentPrice,
+        id: orderId, name: "Bespoke 1-of-1: " + currentType, price: currentPrice,
         meta: `Chest ${chest}" | Waist ${waist}" | Monogram: ${currentMonogram} | Fabric: ${currentFabric}`,
         isCustom: true
       });
-
-      showNotification(`✂️ Bespoke commission #${orderId} submitted! Assigned to Master Couturier Aisha Varman.`, "success");
+      showNotification("Demo bespoke request saved in this browser only. It has not been sent to a tailor.", "info");
     });
   }
 }
