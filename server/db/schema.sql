@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS orders (
   currency CHAR(3) NOT NULL DEFAULT 'SAR', shipping_address JSONB NOT NULL,
   paid_at TIMESTAMPTZ, stock_released_at TIMESTAMPTZ, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS stock_released_at TIMESTAMPTZ;
 CREATE INDEX IF NOT EXISTS orders_user_created_idx ON orders(user_id,created_at DESC);
 CREATE INDEX IF NOT EXISTS orders_payment_reference_idx ON orders(payment_reference);
 CREATE TABLE IF NOT EXISTS order_items (
