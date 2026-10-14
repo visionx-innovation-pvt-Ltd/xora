@@ -308,26 +308,23 @@ function initLoader() {
 // --- NOTIFICATION SYSTEM ---
 function showNotification(message, type = "info") {
   const notification = document.createElement("div");
-  notification.className = `notification ${type}`;
-  notification.innerHTML = `
-    <div class="notification-content">
-      <span>${message}</span>
-      <button class="notification-close">×</button>
-    </div>
-  `;
+  notification.className = `notification ${["success", "error", "info"].includes(type) ? type : "info"}`;
+  const content = document.createElement("div");
+  content.className = "notification-content";
+  const text = document.createElement("span");
+  text.textContent = String(message ?? "");
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "notification-close";
+  closeBtn.type = "button";
+  closeBtn.setAttribute("aria-label", "Dismiss notification");
+  closeBtn.textContent = "×";
+  content.append(text, closeBtn);
+  notification.appendChild(content);
   document.body.appendChild(notification);
-  setTimeout(() => notification.classList.add("show"), 50);
-
-  const closeBtn = notification.querySelector(".notification-close");
-  closeBtn.addEventListener("click", () => {
-    notification.classList.remove("show");
-    setTimeout(() => notification.remove(), 300);
-  });
-
-  setTimeout(() => {
-    notification.classList.remove("show");
-    setTimeout(() => notification.remove(), 300);
-  }, 4000);
+  window.setTimeout(() => notification.classList.add("show"), 50);
+  const dismiss = () => { notification.classList.remove("show"); window.setTimeout(() => notification.remove(), 300); };
+  closeBtn.addEventListener("click", dismiss);
+  window.setTimeout(dismiss, 4000);
 }
 
 // --- MEMBERSHIP PRIVILEGE ENGINE ---
