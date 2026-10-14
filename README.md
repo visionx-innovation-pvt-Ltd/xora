@@ -1,3 +1,27 @@
+## Backend deployment status
+
+The repository includes a backend foundation under `server/` and a Render Blueprint in `render.yaml`. These files are part of the `feat/production-backend-payments` pull request and are not live until reviewed, merged, and deployed.
+
+**The storefront remains a prototype until it is connected to the deployed API. Payment credentials and payment provider setup are intentionally omitted for the first deployment.**
+
+### Render + Neon deployment
+
+1. Review the [backend pull request](https://github.com/visionx-innovation-pvt-Ltd/xora/pull/1) and merge it into `main` only after reviewing code and CI.
+2. Create a Neon PostgreSQL project. Keep the connection string private and use the pooled or direct connection string recommended for the migration step.
+3. Open the Neon SQL Editor and run the contents of `server/db/schema.sql`. Confirm all tables and indexes exist.
+4. In Render, create a Blueprint from this repository and select `render.yaml`. If the Blueprint asks for values, configure:
+   - `DATABASE_URL`: Neon connection string (secret; never commit it)
+   - `CORS_ORIGINS`: exact deployed storefront origin(s), comma-separated
+   - `PUBLIC_APP_URL`: storefront HTTPS URL
+   - `API_PUBLIC_URL`: deployed API HTTPS URL
+5. Let Render generate `JWT_SECRET`. Do not paste it into GitHub files or commit any `.env` file.
+6. Deploy the API and open `https://YOUR-API-HOST/health`. It should return HTTP 200 with `status: ok` and `database: connected`.
+7. Test registration, login, product listing and order access in a non-production test environment before connecting the storefront.
+
+The Render build runs syntax checks and unit tests. This does not replace a live database integration test. The initial deployment does not configure payments; do not accept live orders or payments until the storefront integration, catalogue, security checks and full end-to-end tests are complete.
+
+---
+
 # XORA — Fashion Storefront & Bespoke Atelier
 
 XORA is a responsive, dark-themed fashion storefront prototype for designer collections, made-to-measure experiences, membership tiers, and internal studio workflows. The front end is built with HTML, CSS, and vanilla JavaScript, with a lightweight Progressive Web App (PWA) setup.
