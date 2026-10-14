@@ -110,7 +110,7 @@ app.post("/api/webhooks/moyasar", route(async (req, res) => {
   if (!secret) return res.status(503).json({ error: "Payment webhook is not configured." });
   if (!equalSecret(req.body?.secret_token, secret)) return res.status(401).json({ error: "Invalid webhook secret." });
   const data = req.body?.data && typeof req.body.data === "object" ? req.body.data : req.body;
-  const eventId = String(req.body?.id || data?.id || "");
+  const eventId = String(req.body?.id || (String(data?.id || "missing") + ":" + String(req.body?.type || data?.status || "event")));
   if (!eventId || !data?.id) return res.status(400).json({ error: "Missing provider event identifier." });
   const duplicate = await pool.query("SELECT id FROM payment_events WHERE provider_event_id=$1", [eventId]); if (duplicate.rowCount) return res.json({ received: true, duplicate: true });
   const invoiceId = data.invoice_id || data.id;
@@ -119,13 +119,19 @@ app.post("/api/webhooks/moyasar", route(async (req, res) => {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
-    const rr = await client.query("SELECT id,total_minor,currency,payment_status,payment_reference FROM orders WHERE id=$1 FOR UPDATE", [orderId]); const order = rr.rows[0];
+    const rr = await client.query("SELECT id,total_minor,currency,payment_status,payment_reference,stock_released_at FROM orders WHERE id=$1 FOR UPDATE", [orderId]); const order = rr.rows[0];
     if (!order) { await client.query("INSERT INTO payment_events(provider_event_id,event_type) VALUES($1,$2) ON CONFLICT DO NOTHING", [eventId, String(req.body?.type || "invoice_callback")]); await client.query("COMMIT"); return res.json({ received: true, ignored: true }); }
     if (order.payment_reference && order.payment_reference !== invoice.id) fail(409, "Provider invoice does not match order.");
     const paid = ["paid", "captured"].includes(invoice.status), matches = invoice.amount === order.total_minor && invoice.currency === order.currency;
     if (paid && !matches) fail(409, "Provider amount/currency does not match stored order.");
     if (paid && matches && order.payment_status !== "paid") await client.query("UPDATE orders SET payment_status='paid',status='processing',paid_at=NOW(),updated_at=NOW() WHERE id=$1", [order.id]);
-    else if (!paid && ["failed", "expired", "canceled", "voided"].includes(invoice.status) && order.payment_status !== "paid") await client.query("UPDATE orders SET payment_status='failed',status='payment_failed',updated_at=NOW() WHERE id=$1", [order.id]);
+    else if (!paid && ["failed", "expired", "canceled", "voided"].includes(invoice.status) && order.payment_status !== "paid") {
+      if (!order.stock_released_at) {
+        const reserved = await client.query("SELECT product_id,quantity FROM order_items WHERE order_id=$1 AND product_id IS NOT NULL", [order.id]);
+        for (const item of reserved.rows) await client.query("UPDATE products SET stock=stock+$1,updated_at=NOW() WHERE id=$2", [item.quantity, item.product_id]);
+        await client.query("UPDATE orders SET payment_status='failed',status='payment_failed',stock_released_at=NOW(),updated_at=NOW() WHERE id=$1", [order.id]);
+      }
+    }
     await client.query("INSERT INTO payment_events(provider_event_id,order_id,event_type) VALUES($1,$2,$3) ON CONFLICT DO NOTHING", [eventId, order.id, String(req.body?.type || "invoice_callback")]);
     await client.query("COMMIT"); res.json({ received: true, orderUpdated: paid && matches });
   } catch (error) { await client.query("ROLLBACK").catch(() => {}); throw error; } finally { client.release(); }
