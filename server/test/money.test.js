@@ -13,5 +13,5 @@ test("order totals use trusted integer prices and bounded quantities", () => {
   assert.throws(() => calculateOrderTotal([{priceMinor:100,quantity:21}]), TypeError);
 });
 test("minor amount formatting uses selected currency", () => {
-  assert.match(formatMinorAmount(1250,"SAR"), /12\\.50/);
+  assert.match(formatMinorAmount(1250,"SAR"), /12[.]50/);
 });
