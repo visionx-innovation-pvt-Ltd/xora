@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: xora-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install && npm run check && npm test
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: false
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CURRENCY
+        value: SAR
+      - key: DATABASE_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: PUBLIC_APP_URL
+        sync: false
+      - key: API_PUBLIC_URL
+        sync: false
+      # Payments are intentionally not configured for this initial deployment.
